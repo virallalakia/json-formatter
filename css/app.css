@@ -1,0 +1,100 @@
+body {
+	background: #FFFFFF;
+	margin: 0;
+	font-family: Arial;
+}
+
+button {
+	display: inline-block;
+	vertical-align: middle;
+	padding: 8px;
+	border: 1px solid #3377EE;
+	background: #5599FF;
+	color: #FFFFFF;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+	margin: 5px;
+}
+button:hover {
+	background: #4488EE !important;
+}
+button:focus {
+	outline: 0px none transparent !important;
+	background: #4488EE !important;
+	box-shadow: 0 0 10px -4px #5599FF !important;
+}
+
+textarea {
+	resize: none;
+	border: 1px solid #DDDDDD;
+	padding: 10px;
+	background: #FCFCFC;
+	color: #333333;
+}
+textarea:hover {
+	background: #FCFCFF !important;
+	border: 1px solid #AADDFF !important;
+}
+textarea:focus {
+	outline: 0px none transparent !important;
+	background: #FCFCFF !important;
+	border: 1px solid #AADDFF !important;
+	box-shadow: 0 0 10px -4px #5599FF !important;
+}
+
+.dummy-vertical-middle {
+	width: 1px;
+	height: 100%;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.logo-text {
+	width: 230px;
+	font-weight: bold;
+	color: #191919;
+	text-shadow: 0 0 7px #CCCCCC;
+	text-align: right;
+	cursor: default;
+}
+.logo-text .logo-main-text {
+	font-size: 24px;
+}
+.logo-text .logo-sub-text {
+	font-size: 10px;
+	text-align: right;
+}
+.logo-text .spe-text {
+	color: #EE5533;
+	text-shadow: 0 0 4px #FFCCAA;
+}
+
+.outer-container {
+	width: 90%;
+	min-width: 320px;
+	margin: 0 auto;
+}
+.header-container {
+	width: 90%;
+	min-width: 320px;
+	height: 10%;
+	min-height: 80px;
+}
+.header-container > * {
+	display: inline-block;
+	vertical-align: middle;
+}
+.main-container {
+	width: 90%;
+	min-width: 320px;
+	height: 80%;
+	min-height: 400px;
+	text-align: center;
+}
+
+#text-data {
+	width: 100%;
+	height: 90%;
+	margin: 20px 0;
+}

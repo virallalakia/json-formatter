@@ -1,0 +1,24 @@
+<html>
+<head>
+	<title>JSON Formatter</title>
+	<link rel="stylesheet" type="text/css" href="css/app.css" />
+</head>
+<body>
+	<div class="header-container outer-container">
+		<div class="logo-text">
+			<div class="logo-main-text"><span class="spe-text">Viral</span> Data Formatter</div>
+			<div class="logo-sub-text">a <span class="spe-text">Viral</span>Project piece</div>
+		</div>
+		<div class="dummy-vertical-middle">&nbsp;</div>
+	</div>
+	<div class="main-container outer-container">
+		<button id="button-show-original" onClick="viralDataFormatter.showOriginal()">Show Original</button>
+		<button id="button-format" onClick="viralDataFormatter.formatJSON()">Format Data</button>
+		<button id="button-trim" onClick="viralDataFormatter.formatJSON(true)">Remove Spaces</button>
+		<br />
+		<textarea id="text-data" placeholder="Enter JSON or JSON-like text here!" oninput="viralDataFormatter.saveInput()"></textarea>
+	</div>
+
+	<script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>
