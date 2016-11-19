@@ -1,4 +1,4 @@
-var viralDataFormatter = (function () {
+var viralJSONFormatter = (function () {
 
 	// private
 	var _$dataCont = document.getElementById("text-data");
@@ -112,7 +112,7 @@ var viralDataFormatter = (function () {
 		}
 
 		var viralPhMapKeyArray = Object.keys(viralPhMap);
-		for (var i = 0; i < viralPhMapKeyArray.length; i++) {
+		for (var i = viralPhMapKeyArray.length - 1; i >= 0; i--) {
 			if (viralPhMapKeyArray[i].indexOf(viralPhPPrefix) >= 0) {
 				var tempStr = viralPhMap[viralPhMapKeyArray[i]];
 				tempStr = tempStr.replace(/,/g, ", ");

@@ -43,20 +43,18 @@ textarea:focus {
 	box-shadow: 0 0 10px -4px #5599FF !important;
 }
 
-.dummy-vertical-middle {
-	width: 1px;
-	height: 100%;
-	display: inline-block;
-	vertical-align: middle;
+.clear {
+	clear: both;
 }
 
 .logo-text {
-	width: 230px;
+	width: 270px;
 	font-weight: bold;
 	color: #191919;
 	text-shadow: 0 0 7px #CCCCCC;
 	text-align: right;
 	cursor: default;
+	float: left;
 }
 .logo-text .logo-main-text {
 	font-size: 24px;
@@ -70,6 +68,34 @@ textarea:focus {
 	text-shadow: 0 0 4px #FFCCAA;
 }
 
+.about-container {
+	float: right;
+	position: relative;
+}
+.about-container .about-link {
+	font-size: 12px;
+	text-decoration: underline;
+	cursor: pointer;
+}
+.about-container .about-info {
+	display: none;
+	position: absolute;
+	right: 0;
+	width: 300px;
+	padding: 10px;
+	border-radius: 5px;
+	background: #000000;
+	background: rgba(0, 0, 0, 0.64);
+	color: #FFFFFF;
+	font-size: 14px;
+	line-height: 140%;
+	text-align: justify;
+	cursor: default;
+}
+.about-container:hover .about-info {
+	display: block;
+}
+
 .outer-container {
 	width: 90%;
 	min-width: 320px;
@@ -78,12 +104,7 @@ textarea:focus {
 .header-container {
 	width: 90%;
 	min-width: 320px;
-	height: 10%;
-	min-height: 80px;
-}
-.header-container > * {
-	display: inline-block;
-	vertical-align: middle;
+	padding: 10px 0 10px 0;
 }
 .main-container {
 	width: 90%;

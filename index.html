@@ -1,8 +1,8 @@
 <html>
 <head>
-	<title>Data Formatter | JSON Formatter - a ViralProject piece</title>
+	<title>Online JSON Formatter - a ViralProject piece</title>
 	<meta name="keywords" content="JSON, Format, JSON Format, JSON Formatter, Data Formatter, ViralProject, ViralProjects, Viral, Lalakia, Viral Lalakia" />
-	<meta name="description" content="An easy and handy formatter tool for JSON and JSON-like data, this page helps in data formatting for JSON and JSON-like data - Viral Data Formatter - a ViralProject piece" />
+	<meta name="description" content="An easy, handy and online tool to format JSON and JSON-like data, this page helps in data formatting for JSON and JSON-like data - Viral JSON Formatter - a ViralProject piece" />
 	<meta name="robots" content="index,follow" />
 	<meta name="author" content="Viral Lalakia" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -11,17 +11,21 @@
 <body>
 	<div class="header-container outer-container">
 		<div class="logo-text">
-			<div class="logo-main-text"><span class="spe-text">Viral</span> Data Formatter</div>
+			<div class="logo-main-text">Online JSON Formatter</div>
 			<div class="logo-sub-text">a <span class="spe-text">Viral</span>Project piece</div>
 		</div>
-		<div class="dummy-vertical-middle">&nbsp;</div>
+		<div class="about-container">
+			<div class="about-link">About</div>
+			<div class="about-info">An easy, handy and online tool to format JSON. This tool helps in data formatting for JSON and JSON-like data.<div style="text-align: right;">- a <b>Viral</b>Project piece</div></div>
+		</div>
+		<div class="clear"></div>
 	</div>
 	<div class="main-container outer-container">
-		<button id="button-show-original" onClick="viralDataFormatter.showOriginal()">Show Original</button>
-		<button id="button-format" onClick="viralDataFormatter.formatJSON()">Format Data</button>
-		<button id="button-trim" onClick="viralDataFormatter.formatJSON(true)">Remove Spaces</button>
+		<button id="button-show-original" onClick="viralJSONFormatter.showOriginal()">Show Original</button>
+		<button id="button-format" onClick="viralJSONFormatter.formatJSON()">Format JSON</button>
+		<button id="button-trim" onClick="viralJSONFormatter.formatJSON(true)">Remove Spaces</button>
 		<br />
-		<textarea id="text-data" placeholder="Enter JSON or JSON-like text here!" oninput="viralDataFormatter.saveInput()"></textarea>
+		<textarea id="text-data" placeholder="Enter JSON or JSON-like text here!" oninput="viralJSONFormatter.saveInput()"></textarea>
 	</div>
 
 	<script type="text/javascript" src="js/app.js"></script>
