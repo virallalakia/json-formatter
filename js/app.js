@@ -7,10 +7,12 @@ var viralJSONFormatter = (function () {
 	// public
 	var saveInput = function () {
 		_userInput = _$dataCont.value;
+		autoAdjustHeight(_$dataCont);
 	};
 
 	var showOriginal = function () {
 		_$dataCont.value = _userInput;
+		autoAdjustHeight(_$dataCont);
 	};
 
 	var formatJSON = function (trimOnly) {
@@ -132,6 +134,7 @@ var viralJSONFormatter = (function () {
 		}
 
 		_$dataCont.value = jsonStr;
+		autoAdjustHeight(_$dataCont);
 	};
 
 	return {
@@ -141,3 +144,10 @@ var viralJSONFormatter = (function () {
 	};
 
 })();
+
+function autoAdjustHeight(elem) {
+	if (elem) {
+		elem.style.height = '1px';
+		elem.style.height = (elem.scrollHeight + 10) + 'px';
+	}
+}
