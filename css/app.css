@@ -5,6 +5,14 @@ body {
 	overflow-y: scroll;
 }
 
+a {
+	color: #5599FF;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+
 button {
 	display: inline-block;
 	vertical-align: middle;
@@ -32,6 +40,7 @@ textarea {
 	padding: 10px;
 	background: #FCFCFC;
 	color: #333333;
+	font-family: consolas;
 }
 textarea:hover {
 	background: #FCFCFF !important;
@@ -51,6 +60,11 @@ textarea:focus {
 	background: #FFFFFF;
 	text-align: right;
 	vertical-align: middle;
+	line-height: 0;
+}
+.virallalakia-container .word {
+	display: inline-block;
+	max-width: 300px;
 	line-height: 0;
 }
 .virallalakia-container .morsepiece-dot {
@@ -107,16 +121,21 @@ textarea:focus {
 	text-shadow: 0 0 4px #FFCCAA;
 }
 
-.about-container {
+.about-container,
+.feedback-container {
 	float: right;
 	position: relative;
+	margin: 0 0 0 10px;
 }
-.about-container .about-link {
+.about-container .about-link,
+.feedback-container .feedback-link {
 	font-size: 12px;
+	font-family: consolas;
 	text-decoration: underline;
 	cursor: pointer;
 }
-.about-container .about-info {
+.about-container .about-info,
+.feedback-container .feedback-info {
 	display: none;
 	position: absolute;
 	right: 0;
@@ -131,7 +150,8 @@ textarea:focus {
 	text-align: justify;
 	cursor: default;
 }
-.about-container:hover .about-info {
+.about-container:hover .about-info,
+.feedback-container:hover .feedback-info {
 	display: block;
 }
 
