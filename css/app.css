@@ -121,38 +121,56 @@ textarea:focus {
 	text-shadow: 0 0 4px #FFCCAA;
 }
 
-.about-container,
-.feedback-container {
+.header-link-container {
 	float: right;
 	position: relative;
 	margin: 0 0 0 10px;
 }
-.about-container .about-link,
-.feedback-container .feedback-link {
+.header-link-container .link {
 	font-size: 12px;
 	font-family: consolas;
 	text-decoration: underline;
 	cursor: pointer;
 }
-.about-container .about-info,
-.feedback-container .feedback-info {
+.header-link-container .info {
 	display: none;
 	position: absolute;
 	right: 0;
 	width: 300px;
-	padding: 10px;
-	border-radius: 5px;
-	background: #000000;
-	background: rgba(0, 0, 0, 0.8);
+	background: transparent;
 	color: #FFFFFF;
 	font-size: 14px;
 	line-height: 140%;
 	text-align: justify;
 	cursor: default;
 }
-.about-container:hover .about-info,
-.feedback-container:hover .feedback-info {
+.header-link-container:hover .info {
 	display: block;
+}
+.header-link-container .info-arrow {
+	padding: 0 10px 0 10px;
+	line-height: 0;
+	text-align: right;
+}
+.header-link-container .info-arrow > * {
+	display: inline-block;
+	border: 2px solid transparent;
+	margin: 0 -2px 0 -2px;
+	opacity: 0.8;
+}
+.header-link-container .info-arrow .info-arrow-leftpart {
+	border-right-color: #000000;
+	border-bottom-color: #000000;
+}
+.header-link-container .info-arrow .info-arrow-rightpart {
+	border-bottom-color: #000000;
+	border-left-color: #000000;
+}
+.header-link-container .info-text {
+	padding: 10px;
+	border-radius: 5px;
+	background: #000000;
+	background: rgba(0, 0, 0, 0.8);
 }
 
 .outer-container {
