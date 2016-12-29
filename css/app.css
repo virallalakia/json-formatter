@@ -120,7 +120,7 @@ textarea:focus {
 	width: 1px;
 	height: 1px;
 	border-radius: 50%;
-	background: rgba(255, 255, 255, 0.8);
+	background: rgba(255, 255, 255, 0.5);
 	transition: none;
 }
 .whirlpool-cont .whirlpool.whirlpool-effect {

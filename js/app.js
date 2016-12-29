@@ -32,20 +32,27 @@
 
 })();
 
+function autoAdjustHeight($elem) {
+	if ($elem) {
+		$elem.css({height: '1px'});
+		$elem.css({height: ($elem.prop('scrollHeight') + 10) + 'px'});
+	}
+}
+
 var viralJSONFormatter = (function () {
 
 	// private
-	var _$dataCont = document.getElementById("text-data");
+	var _$dataCont = $("#text-data");
 	var _userInput = '';
 
 	// public
 	var saveInput = function () {
-		_userInput = _$dataCont.value;
+		_userInput = _$dataCont.val();
 		autoAdjustHeight(_$dataCont);
 	};
 
 	var showOriginal = function () {
-		_$dataCont.value = _userInput;
+		_$dataCont.val(_userInput);
 		autoAdjustHeight(_$dataCont);
 	};
 
@@ -167,7 +174,7 @@ var viralJSONFormatter = (function () {
 			jsonStr = jsonStr.replace(viralPhMapKeyArray[i], viralPhMap[viralPhMapKeyArray[i]]);
 		}
 
-		_$dataCont.value = jsonStr;
+		_$dataCont.val(jsonStr);
 		autoAdjustHeight(_$dataCont);
 	};
 
@@ -179,9 +186,12 @@ var viralJSONFormatter = (function () {
 
 })();
 
-function autoAdjustHeight(elem) {
-	if (elem) {
-		elem.style.height = '1px';
-		elem.style.height = (elem.scrollHeight + 10) + 'px';
-	}
-}
+$(document).ready(function() {
+	$('#button-show-original').on('click.vl-json-formatter', viralJSONFormatter.showOriginal);
+	$('#button-format').on('click.vl-json-formatter', viralJSONFormatter.formatJSON);
+	$('#button-trim').on('click.vl-json-formatter', function() {
+		viralJSONFormatter.formatJSON(true);
+	});
+
+	$("#text-data").focus();
+});
