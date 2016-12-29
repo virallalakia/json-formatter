@@ -41,11 +41,18 @@
 		<div class="clear"></div>
 	</div>
 	<div class="main-container outer-container">
-		<button id="button-show-original" onClick="viralJSONFormatter.showOriginal()">Show Original</button>
-		<button id="button-format" onClick="viralJSONFormatter.formatJSON()">Format JSON</button>
-		<button id="button-trim" onClick="viralJSONFormatter.formatJSON(true)">Remove Spaces</button>
-		<br />
-		<textarea id="text-data" placeholder="Enter JSON or JSON-like text here!" oninput="viralJSONFormatter.saveInput()"></textarea>
+		<div class="button-container">
+			<button id="button-show-original">Show Original</button>
+			<button id="button-format">Format JSON</button>
+			<button id="button-trim">Remove Spaces</button>
+		</div>
+		<div class="text-data-container">
+			<div class="text-data-controls-container">
+				<button id="font-size-decrease">Aa-</button>
+				<button id="font-size-increase">Aa+</button>
+			</div>
+			<textarea id="text-data" placeholder="Enter JSON or JSON-like text here!"></textarea>
+		</div>
 	</div>
 	<div class="virallalakia-container">
 		<div class="word">

@@ -186,12 +186,54 @@ var viralJSONFormatter = (function () {
 
 })();
 
-$(document).ready(function() {
-	$('#button-show-original').on('click.vl-json-formatter', viralJSONFormatter.showOriginal);
-	$('#button-format').on('click.vl-json-formatter', viralJSONFormatter.formatJSON);
-	$('#button-trim').on('click.vl-json-formatter', function() {
-		viralJSONFormatter.formatJSON(true);
+function attachButtonEvents() {
+	$('#button-show-original').off('click.vl-json-formatter').on('click.vl-json-formatter', function () {
+		viralJSONFormatter.showOriginal();
+		focusTextArea();
 	});
+	$('#button-format').off('click.vl-json-formatter').on('click.vl-json-formatter', function () {
+		viralJSONFormatter.formatJSON();
+		focusTextArea();
+	});
+	$('#button-trim').off('click.vl-json-formatter').on('click.vl-json-formatter', function () {
+		viralJSONFormatter.formatJSON(true);
+		focusTextArea();
+	});
+}
 
+function attachTextAreaEvents() {
+	var $textArea = $("#text-data");
+	$textArea.off('input.vl-json-formatter').on('input.vl-json-formatter', viralJSONFormatter.saveInput);
+
+	var textAreaFontSize = 16;
+	function setTextAreaFontSize() {
+		$textArea.css('font-size', (textAreaFontSize + 'px'));
+		autoAdjustHeight($textArea);
+	}
+
+	$("#font-size-increase").off('click.vl-json-formatter').on('click.vl-json-formatter', function () {
+		if(textAreaFontSize < 24) {
+			textAreaFontSize+=2;
+			setTextAreaFontSize();
+		}
+		focusTextArea();
+	});
+	$("#font-size-decrease").off('click.vl-json-formatter').on('click.vl-json-formatter', function () {
+		if(textAreaFontSize > 12) {
+			textAreaFontSize-=2;
+			setTextAreaFontSize();
+		}
+		focusTextArea();
+	});
+}
+
+function focusTextArea() {
 	$("#text-data").focus();
+}
+
+$(document).ready(function() {
+	attachButtonEvents();
+	attachTextAreaEvents();
+
+	focusTextArea();
 });

@@ -37,7 +37,6 @@ button:hover {
 	background: #4488EE !important;
 }
 button:focus {
-	outline: 0px none transparent !important;
 	background: #4488EE !important;
 	box-shadow: 0 0 10px -4px #5599FF !important;
 }
@@ -221,9 +220,34 @@ textarea:focus {
 	text-align: center;
 }
 
+.text-data-container {
+	margin: 20px 0;
+}
+.text-data-controls-container {
+	text-align: right;
+}
+.text-data-controls-container button {
+	display: inline-block;
+	vertical-align: middle;
+	padding: 0 4px;
+	margin: 0 0 0 -4px;
+	border: 1px solid #3377EE;
+	background: #DDEEFF;
+	color: #3377EE;
+	font-size: 14px;
+	line-height: 24px;
+	cursor: pointer;
+}
+.text-data-controls-container button:hover {
+	background: #BBDDFF !important;
+}
+.text-data-controls-container button:focus {
+	background: #BBDDFF !important;
+	box-shadow: 0 0 10px -4px #99BBFF !important;
+}
 #text-data {
 	width: 100%;
 	min-height: 200px;
-	margin: 20px 0;
+	font-size: 16px;
 	overflow: hidden;
 }
