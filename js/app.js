@@ -1,3 +1,37 @@
+(function whirlpool() {
+
+	$('body').append('<div class="whirlpool-cont"><div class="whirlpool"></div></div>');
+	var $whirlpoolCont = $('.whirlpool-cont');
+	var $whirlpool = $whirlpoolCont.find('.whirlpool');
+
+	$(document).off('click').on('click', function (e) {
+		var $target = $(e.target);
+		if (!$target.is('button')) {
+			return;
+		}
+
+		var targetOffset = $target.offset();
+		var targetTotalWidth = $target.outerWidth();
+		var targetTotalHeight = $target.outerHeight();
+		var scale = 2 * (targetTotalWidth >= targetTotalHeight ? targetTotalWidth : targetTotalHeight); 
+		var delay = (scale > 400 ? (scale <= 1000 ? scale : 1000) : 400);
+
+		$whirlpoolCont.css({'width': targetTotalWidth, 'height': targetTotalHeight, 'left': targetOffset.left, 'top': targetOffset.top});
+		$whirlpool.css({'left': e.pageX - targetOffset.left, 'top': e.pageY - targetOffset.top});
+		$whirlpool.show(0);
+		$whirlpool.addClass('whirlpool-effect');
+		$whirlpool.css({'transform': 'scale(' + scale + ')'});
+		setTimeout(function() {
+			$whirlpool.hide(0);
+			$whirlpool.removeClass('whirlpool-effect');
+			$whirlpoolCont.css({'width': 0, 'height': 0, 'left': 0, 'top': 0});
+			$whirlpool.css({'transform': 'scale(0)'});
+		}, delay);
+
+	});
+
+})();
+
 var viralJSONFormatter = (function () {
 
 	// private

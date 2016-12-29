@@ -1,7 +1,15 @@
+*, *:focus, *:active {
+	outline: 0 !important;
+}
+*::-moz-focus-inner {
+	border: 0 !important;
+}
+
 body {
 	background: #FFFFFF;
 	margin: 0;
 	font-family: Arial;
+	font-size: 10px;
 	overflow-y: scroll;
 }
 
@@ -94,6 +102,30 @@ textarea:focus {
 	background: transparent;
 	display: inline-block;
 	vertical-align: middle;
+}
+
+.whirlpool-cont {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0px;
+	height: 0px;
+	overflow: hidden;
+}
+.whirlpool-cont .whirlpool {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 1px;
+	height: 1px;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.8);
+	transition: none;
+}
+.whirlpool-cont .whirlpool.whirlpool-effect {
+	transition: all 0.5s ease 0s;
+	background: rgba(255, 255, 255, 0);
 }
 
 .clear {
