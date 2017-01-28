@@ -363,6 +363,7 @@ var viralJSONFormatter = (function ($V) {
 	};
 
 	$V.documentReady(function() {
+		_$dataCont.focus();
 		textareaAutoAdjustHeight();
 		attachButtonEvents();
 		attachTextAreaEvents();
@@ -390,12 +391,12 @@ var viralJSONFormatter = (function ($V) {
 				},
 				'alt+dash': function () {
 					viralRippleClick.disable();
-					$V.trigger(_$buttonFontSizeIncrease, 'click');
+					$V.trigger(_$buttonFontSizeDecrease, 'click');
 					viralRippleClick.enable();
 				},
 				'alt+=': function () {
 					viralRippleClick.disable();
-					$V.trigger(_$buttonFontSizeDecrease, 'click');
+					$V.trigger(_$buttonFontSizeIncrease, 'click');
 					viralRippleClick.enable();
 				}
 			});
