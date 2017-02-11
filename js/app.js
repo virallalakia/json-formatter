@@ -23,8 +23,8 @@ var viralJsUtils = viralJsUtils || {};
 	$V['parseJSON'] = function(str) {
 		return (JSON.parse(str));
 	};
-	$V['stringifyJSON'] = function(obj) {
-		return (JSON.stringify(obj));
+	$V['stringifyJSON'] = function(obj, replacer, space) {
+		return (JSON.stringify(obj, replacer, space));
 	};
 	$V['extend'] = function(p1, p2) {
 		var deepExtend = false;
@@ -298,6 +298,7 @@ var viralJsUtils = viralJsUtils || {};
 var viralJSONFormatter = (function ($V) {
 	// private
 	var _$dataCont = $V.select("#text-data")[0];
+	var _$messageCont = $V.select("#message")[0];
 	var _$buttonShowOriginal = $V.select('#button-show-original')[0];
 	var _$buttonFormat = $V.select('#button-format')[0];
 	var _$buttonTrim = $V.select('#button-trim')[0];
@@ -407,13 +408,21 @@ var viralJSONFormatter = (function ($V) {
 	// public
 	var saveInput = function () {
 		_userInput = _$dataCont.value;
+		$V.hide(_$messageCont);
 	};
 
 	var showOriginal = function () {
 		_$dataCont.value = _userInput;
+		$V.hide(_$messageCont);
 	};
 
 	var formatJSON = function (trimOnly) {
+
+		$V.hide(_$messageCont);
+
+		if (trimOnly !== true) {
+			trimOnly = false;
+		}
 
 		var jsonStr = _userInput;
 
@@ -421,6 +430,10 @@ var viralJSONFormatter = (function ($V) {
 		var viralPhPPrefix = "__viralPhP";
 		var viralPhSuffix = "__";
 		var viralPhMap = {};
+
+		if (!jsonStr) {
+			return;
+		}
 
 		var stringRegex = /(?:"(?:\\"|[^"\r\n])*"|'(?:\\'|[^'\r\n])*')/g;
 		var strArray = jsonStr.match(stringRegex);
@@ -437,7 +450,7 @@ var viralJSONFormatter = (function ($V) {
 		}
 
 		jsonStr = jsonStr.replace(/\s/g, "");
-		if (trimOnly !== true) {
+		if (!trimOnly) {
 			var indexFOP = 0;
 			parenthesesStartSearch: while ((indexFOP = jsonStr.indexOf("(", indexFOP)) >= 0) {
 				var countOP = 1;
@@ -529,6 +542,19 @@ var viralJSONFormatter = (function ($V) {
 				viralPhMap[viralPhMapKeyArray[i]] = tempStr;
 			}
 			jsonStr = jsonStr.replace(viralPhMapKeyArray[i], viralPhMap[viralPhMapKeyArray[i]]);
+		}
+
+		if (!trimOnly) {
+			try {
+				var jsonObj = $V.parseJSON(jsonStr);
+				jsonStr = $V.stringifyJSON(jsonObj, null, "    ");
+			} catch (e) {
+				var msg = e.message;
+				msg = msg.replace("JSON.parse: ", "Error: ");
+				$V.text(_$messageCont, msg);
+				$V.attr(_$messageCont, "title", msg);
+				$V.show(_$messageCont);
+			}
 		}
 
 		_$dataCont.value = jsonStr;
