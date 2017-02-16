@@ -337,6 +337,7 @@ var viralJSONFormatter = (function ($V) {
 		var textAreaFontSize = 16;
 		var setTextAreaFontSize = function () {
 			$V.css(_$dataCont, 'font-size', (textAreaFontSize + 'px'));
+			textAreaNumberLine.repaint();
 		};
 
 		var textAreaFontSizeIncreaseHandler = function () {
@@ -358,6 +359,74 @@ var viralJSONFormatter = (function ($V) {
 		$V.on(_$buttonFontSizeDecrease, 'click', textAreaFontSizeDecreaseHandler);
 	};
 
+	var textAreaNumberLine = (function () {
+		var $numberCont;
+
+		function init() {
+			var numberContId = $V.attr(_$dataCont, 'id') + '-line-numbers';
+			$numberCont = ($V.select('#' + numberContId)[0]) || ('<pre id="' + numberContId + '"></pre>');
+			$V.after(_$dataCont, $numberCont);
+			$numberCont = $V.select('#' + numberContId)[0];
+			repaint();
+			$V.off(_$dataCont, 'scroll', repaint);
+			$V.on(_$dataCont, 'scroll', repaint);
+			$V.off(window, 'resize', repaint);
+			$V.on(window, 'resize', repaint);
+		}
+
+		function repaint() {
+			var lines = 1 + ((_$dataCont.value || '').match(/\n/g) || []).length;
+
+			$V.css(_$dataCont, {
+				'padding-left': ''
+			});
+
+			var textAreaOffset = $V.position(_$dataCont);
+			var textAreaPaddingTop = parseInt($V.css(_$dataCont, 'padding-top'));
+			var textAreaPaddingBottom = parseInt($V.css(_$dataCont, 'padding-bottom'));
+			var textAreaPaddingLeft = parseInt($V.css(_$dataCont, 'padding-left'));
+			var textAreaHeight = $V.outerHeight(_$dataCont);
+			var textAreaFontSize = parseInt($V.css(_$dataCont, 'font-size'));
+			$V.css($numberCont, {
+				'position': 'absolute',
+				'top': textAreaOffset.top,
+				'left': textAreaOffset.left,
+				'overflow': 'hidden',
+				'width': textAreaFontSize * 0.6 * (Math.floor(Math.log(lines) * Math.LOG10E) + 1),
+				'height': textAreaHeight - textAreaPaddingTop - textAreaPaddingBottom - 2,
+				'padding': textAreaPaddingTop + ' 10px ' + textAreaPaddingBottom + ' 10px',
+				'margin': '0',
+				'border': '1px solid transparent',
+				'border-right-color': '#EEEEEE',
+				'background': 'rgba(0,0,0,0.01)',
+				'color': '#AAAAAA',
+				'font-size': textAreaFontSize + 'px',
+				'line-height': $V.css(_$dataCont, 'line-height'),
+				'font-family': $V.css(_$dataCont, 'font-family'),
+				'text-align': 'right'
+			});
+
+			var numberContWidth = $V.outerWidth($numberCont);
+			$V.css(_$dataCont, {
+				'padding-left': numberContWidth + textAreaPaddingLeft
+			});
+
+			var numberContText = '';
+			for (var i = 0; i < lines; i++) {
+				numberContText += (i+1) + '\n';
+			}
+			numberContText += '\n';
+			$V.text($numberCont, numberContText);
+
+			$numberCont.scrollTop = _$dataCont.scrollTop;
+		}
+
+		return {
+			init: init,
+			repaint: repaint
+		};
+	})();
+
 	var attachWindowEvents = function () {
 		$V.off(window, 'resize', textareaAutoAdjustHeight);
 		$V.on(window, 'resize', textareaAutoAdjustHeight);
@@ -369,6 +438,7 @@ var viralJSONFormatter = (function ($V) {
 		attachButtonEvents();
 		attachTextAreaEvents();
 		attachWindowEvents();
+		textAreaNumberLine.init();
 		try {
 			viralRippleClick.options({
 				'color':'#252525',
@@ -409,11 +479,13 @@ var viralJSONFormatter = (function ($V) {
 	var saveInput = function () {
 		_userInput = _$dataCont.value;
 		$V.hide(_$messageCont);
+		textAreaNumberLine.repaint();
 	};
 
 	var showOriginal = function () {
 		_$dataCont.value = _userInput;
 		$V.hide(_$messageCont);
+		textAreaNumberLine.repaint();
 	};
 
 	var formatJSON = function (trimOnly) {
@@ -558,6 +630,7 @@ var viralJSONFormatter = (function ($V) {
 		}
 
 		_$dataCont.value = jsonStr;
+		textAreaNumberLine.repaint();
 	};
 
 	return {
