@@ -115,6 +115,8 @@ textarea:focus {
 	width: 90%;
 	min-width: 320px;
 	padding: 10px 0 10px 0;
+	position: relative;
+	z-index: 1000;
 }
 .main-container {
 	width: 90%;
@@ -206,6 +208,7 @@ textarea:focus {
 
 .text-data-container {
 	margin: 20px 0;
+	position: relative;
 }
 .text-data-controls-container {
 	text-align: right;
