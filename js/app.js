@@ -447,6 +447,7 @@ var viralJSONFormatter = (function ($V) {
 		}
 
 		function hideErrorLine() {
+			$V.attr($numberContHighlighter, 'data-line', '');
 			$V.hide($numberContHighlighter);
 		}
 
