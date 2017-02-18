@@ -360,13 +360,19 @@ var viralJSONFormatter = (function ($V) {
 	};
 
 	var textAreaNumberLine = (function () {
+		var $numberContCont;
 		var $numberCont;
+		var $numberContHighlighter;
 
 		function init() {
 			var numberContId = $V.attr(_$dataCont, 'id') + '-line-numbers';
-			$numberCont = ($V.select('#' + numberContId)[0]) || ('<pre id="' + numberContId + '"></pre>');
-			$V.after(_$dataCont, $numberCont);
+			var numberContContId = numberContId + '-container';
+			var numberContHighlighterId = numberContId + '-highlighter';
+			$numberContCont = ($V.select('#' + numberContContId)[0]) || ('<div id="' + numberContContId + '"><pre id="' + numberContId + '"></pre><div id="' + numberContHighlighterId + '" style="display: none;"></div></div>');
+			$V.after(_$dataCont, $numberContCont);
+			$numberContCont = $V.select('#' + numberContContId)[0];
 			$numberCont = $V.select('#' + numberContId)[0];
+			$numberContHighlighter = $V.select('#' + numberContHighlighterId)[0];
 			repaint();
 			$V.off(_$dataCont, 'scroll', repaint);
 			$V.on(_$dataCont, 'scroll', repaint);
@@ -387,7 +393,7 @@ var viralJSONFormatter = (function ($V) {
 			var textAreaPaddingLeft = parseInt($V.css(_$dataCont, 'padding-left'));
 			var textAreaHeight = $V.outerHeight(_$dataCont);
 			var textAreaFontSize = parseInt($V.css(_$dataCont, 'font-size'));
-			$V.css($numberCont, {
+			$V.css($numberContCont, {
 				'position': 'absolute',
 				'top': textAreaOffset.top,
 				'left': textAreaOffset.left,
@@ -405,10 +411,24 @@ var viralJSONFormatter = (function ($V) {
 				'font-family': $V.css(_$dataCont, 'font-family'),
 				'text-align': 'right'
 			});
+			$V.css($numberCont, {
+				'overflow': 'hidden',
+				'width': textAreaFontSize * 0.6 * (Math.floor(Math.log(lines) * Math.LOG10E) + 1),
+				'height': textAreaHeight - textAreaPaddingTop - textAreaPaddingBottom - 2,
+				'margin': '0'
+			});
+			$V.css($numberContHighlighter, {
+				'position': 'absolute',
+				'top': '10px',
+				'left': '0px',
+				'width': '100%',
+				'height': $V.css(_$dataCont, 'line-height'),
+				'background': 'rgba(255,0,0,0.1)'
+			});
 
-			var numberContWidth = $V.outerWidth($numberCont);
+			var numberContContWidth = $V.outerWidth($numberContCont);
 			$V.css(_$dataCont, {
-				'padding-left': numberContWidth + textAreaPaddingLeft
+				'padding-left': numberContContWidth + textAreaPaddingLeft
 			});
 
 			var numberContText = '';
@@ -418,12 +438,41 @@ var viralJSONFormatter = (function ($V) {
 			numberContText += '\n';
 			$V.text($numberCont, numberContText);
 
+			showErrorLine(-1);
+
 			$numberCont.scrollTop = _$dataCont.scrollTop;
+			$V.css($numberContHighlighter, {
+				'top': parseInt($V.attr($numberContHighlighter, 'data-top') - $numberCont.scrollTop) + 'px'
+			});
+		}
+
+		function hideErrorLine() {
+			$V.hide($numberContHighlighter);
+		}
+
+		function showErrorLine(line) {
+			if ($V.type(line) !== 'number') {
+				return;
+			} else if (line <= 0) {
+				line = parseInt($V.attr($numberContHighlighter, 'data-line') || -10, 10);
+			}
+			$V.attr($numberContHighlighter, 'data-line', line);
+			$V.attr($numberContHighlighter, 'data-top', (parseInt($V.css($numberContHighlighter, 'height')) * (line - 1) + 10));
+			$V.show($numberContHighlighter);
+		}
+
+		function scrollIntoViewErrorLine() {
+			var textAreaPaddingTop = parseInt($V.css(_$dataCont, 'padding-top'));
+			var textAreaHeight = $V.outerHeight(_$dataCont);
+			_$dataCont.scrollTop = $V.attr($numberContHighlighter, 'data-top') - (textAreaHeight/2 - textAreaPaddingTop);
 		}
 
 		return {
 			init: init,
-			repaint: repaint
+			repaint: repaint,
+			hideErrorLine: hideErrorLine,
+			showErrorLine: showErrorLine,
+			scrollIntoViewErrorLine: scrollIntoViewErrorLine
 		};
 	})();
 
@@ -479,18 +528,21 @@ var viralJSONFormatter = (function ($V) {
 	var saveInput = function () {
 		_userInput = _$dataCont.value;
 		$V.hide(_$messageCont);
+		textAreaNumberLine.hideErrorLine();
 		textAreaNumberLine.repaint();
 	};
 
 	var showOriginal = function () {
 		_$dataCont.value = _userInput;
 		$V.hide(_$messageCont);
+		textAreaNumberLine.hideErrorLine();
 		textAreaNumberLine.repaint();
 	};
 
 	var formatJSON = function (trimOnly) {
 
 		$V.hide(_$messageCont);
+		textAreaNumberLine.hideErrorLine();
 
 		if (trimOnly !== true) {
 			trimOnly = false;
@@ -616,6 +668,7 @@ var viralJSONFormatter = (function ($V) {
 			jsonStr = jsonStr.replace(viralPhMapKeyArray[i], viralPhMap[viralPhMapKeyArray[i]]);
 		}
 
+		var line;
 		if (!trimOnly) {
 			try {
 				var jsonObj = $V.parseJSON(jsonStr);
@@ -626,10 +679,16 @@ var viralJSONFormatter = (function ($V) {
 				$V.text(_$messageCont, msg);
 				$V.attr(_$messageCont, "title", msg);
 				$V.show(_$messageCont);
+				var lineIndex = msg.indexOf("line ") + 5;
+				line = msg.substring(lineIndex, msg.indexOf(" ", lineIndex));
 			}
 		}
 
 		_$dataCont.value = jsonStr;
+		if (line) {
+			textAreaNumberLine.showErrorLine(parseInt(line));
+			textAreaNumberLine.scrollIntoViewErrorLine();
+		}
 		textAreaNumberLine.repaint();
 	};
 
