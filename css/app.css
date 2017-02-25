@@ -12,6 +12,12 @@ body {
 	font-size: 10px;
 }
 
+tt {
+	font-family: consolas;
+	font-weight: bold;
+	color: #55FF99;
+}
+
 a {
 	color: #5599FF;
 	text-decoration: none;
@@ -170,6 +176,10 @@ textarea:focus {
 }
 .header-link-container:hover .info {
 	display: block;
+}
+.header-link-container.about-json-container .info {
+	width: 600px;
+	font-size: 11px;
 }
 .header-link-container .info-arrow {
 	padding: 0 10px 0 10px;

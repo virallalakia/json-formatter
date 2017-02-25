@@ -6,7 +6,7 @@ var viralJsUtils = viralJsUtils || {};
 		if (typeof (obj) === "undefined") {
 			return ("undefined");
 		}
-		return (Object.prototype.toString.call(obj).replace(/^\[object (.+)\]$/, '$1').toLowerCase());
+		return (Object.prototype.toString.call(obj).replace(/^\[object\s(.+)\]$/, '$1').toLowerCase());
 	};
 	$V['trim'] = function(str) {
 		return (str.trim());
@@ -641,9 +641,9 @@ var viralJSONFormatter = (function ($V) {
 				}
 				i = minIndex + ("\r\n" + tab).length + 1;
 			}
-			jsonStr = jsonStr.replace(/,/g, ", ").replace(/,[ ]+/g, ", ");
-			jsonStr = jsonStr.replace(/:/g, ": ").replace(/:[ ]+/g, ": ");
-			jsonStr = jsonStr.replace(/=/g, "= ").replace(/=[ ]+/g, "= ");;
+			jsonStr = jsonStr.replace(/,/g, ", ").replace(/,[\s]+/g, ", ");
+			jsonStr = jsonStr.replace(/:/g, ": ").replace(/:[\s]+/g, ": ");
+			jsonStr = jsonStr.replace(/=/g, "= ").replace(/=[\s]+/g, "= ");
 			jsonStr = jsonStr.replace(/\s+\r\n/g, "\r\n").replace(/\s+[\r\n]/g, "\r\n");
 			jsonStr = jsonStr.replace(/\r\n\s*\r\n/g, "\r\n").replace(/[\r\n]\s*[\r\n]/g, "\r\n");
 			jsonStr = jsonStr.trim();
