@@ -13,7 +13,7 @@ body {
 }
 
 tt {
-	font-family: consolas;
+	font-family: monospace, consolas;
 	font-weight: bold;
 	color: #55FF99;
 }
@@ -52,7 +52,7 @@ textarea {
 	padding: 10px;
 	background: #FCFCFC;
 	color: #333333;
-	font-family: consolas;
+	font-family: monospace, consolas;
 }
 textarea:hover {
 	background: #FCFCFF !important;
@@ -158,7 +158,7 @@ textarea:focus {
 }
 .header-link-container .link {
 	font-size: 12px;
-	font-family: consolas;
+	font-family: monospace, consolas;
 	text-decoration: underline;
 	cursor: pointer;
 }
